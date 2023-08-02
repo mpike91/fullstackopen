@@ -65,7 +65,9 @@
 // EXERCISES 12+:
 import { useState } from "react";
 
-const Button = ({ handleClick }) => {};
+const Button = ({ handleClick, text }) => {
+  return <button onClick={handleClick}>{text}</button>;
+};
 
 const App = () => {
   const anecdotes = [
@@ -79,9 +81,42 @@ const App = () => {
     "The only way to go fast, is to go well.",
   ];
 
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState(anecdotes[0]);
+  const [vote, setVote] = useState(new Array(anecdotes.length + 1).fill(0));
+  const [currIdx, setCurrIdx] = useState(0);
 
-  return <Button handleClick={() => setSelected} />;
+  const randomIndex = () => {
+    const rndIdx = Math.floor(Math.random() * anecdotes.length);
+    setCurrIdx(rndIdx);
+    return rndIdx;
+  };
+
+  const handleClickVote = () => {
+    const voteCopy = [...vote];
+    voteCopy[currIdx]++;
+    setVote(voteCopy);
+  };
+
+  const handleClickAnecdote = () => setSelected(anecdotes[randomIndex()]);
+
+  const most = () => {
+    const m = Math.max(...vote);
+    return vote.findIndex((x) => x === m);
+  };
+
+  return (
+    <>
+      <Button handleClick={handleClickVote} text="Vote" />
+      <Button handleClick={handleClickAnecdote} text="Anecdote" />
+
+      <h1>Anecdote of the Day</h1>
+      <p>Votes: {vote[currIdx]}</p>
+      <p>{selected}</p>
+      <h1>Anecdote with most votes</h1>
+      <p>{anecdotes[most()]}</p>
+      {console.log(vote)}
+    </>
+  );
 };
 
 export default App;
