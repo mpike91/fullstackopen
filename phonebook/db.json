@@ -19,6 +19,21 @@
       "name": "Mary Poppendieck",
       "number": "39-23-6423122",
       "id": 4
+    },
+    {
+      "name": "Jack Jackleson Jackson",
+      "number": "777-7777",
+      "id": 6
+    },
+    {
+      "name": "Jack Jackleson Jackson the 2nd",
+      "number": "777-7777",
+      "id": 7
+    },
+    {
+      "name": "joe joeson",
+      "number": "am i right?",
+      "id": 8
     }
   ]
 }
