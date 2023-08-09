@@ -1,21 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: "Arto Hellas", num: "040-123456", id: 1 },
-    { name: "Ada Lovelace", num: "39-44-5323523", id: 2 },
-    { name: "Dan Abramov", num: "12-43-234345", id: 3 },
-    { name: "Mary Poppendieck", num: "39-23-6423122", id: 4 },
-  ]);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
-  const [newNum, setNewNum] = useState("");
+  const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
+
+  const hook = () => {
+    axios.get("http://localhost:3001/persons").then((response) => {
+      console.log("promise fulfilled");
+      setPersons(response.data);
+    });
+  };
+
+  useEffect(hook, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (persons.find((person) => person.name === newName))
       return alert(`${newName} is already added to phonebook.`);
-    setPersons([...persons, { name: newName, num: newNum }]);
+    setPersons([...persons, { name: newName, number: newNumber }]);
   };
 
   return (
@@ -25,7 +30,7 @@ const App = () => {
       <h2>Add new person</h2>
       <AddPerson
         setNewName={setNewName}
-        setNewNum={setNewNum}
+        setNewNumber={setNewNumber}
         handleSubmit={handleSubmit}
       />
       <h2>Numbers</h2>
@@ -40,13 +45,13 @@ const Filter = ({ setFilter }) => (
   </div>
 );
 
-const AddPerson = ({ setNewName, setNewNum, handleSubmit }) => (
+const AddPerson = ({ setNewName, setNewNumber, handleSubmit }) => (
   <form>
     <div>
       Name: <input onChange={(e) => setNewName(e.target.value)} />
     </div>
     <div>
-      Number: <input onChange={(e) => setNewNum(e.target.value)} />
+      Number: <input onChange={(e) => setNewNumber(e.target.value)} />
     </div>
     <button type="submit" onClick={handleSubmit}>
       Add
@@ -66,7 +71,7 @@ const Person = ({ person, filter }) => {
   if (person.name.toLowerCase().includes(filter.toLowerCase())) {
     return (
       <li>
-        {person.name} ({person.num})
+        {person.name} ({person.number})
       </li>
     );
   }
