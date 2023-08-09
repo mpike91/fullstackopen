@@ -122,7 +122,7 @@
 // export default App;
 
 // PART 2
-import { useState, useSyncExternalStore } from "react";
+import { useState } from "react";
 import Note from "./components/Note";
 
 const App = (props) => {
