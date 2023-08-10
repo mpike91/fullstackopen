@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+// Components
 import Note from "./components/Note";
 import Notification from "./components/Notification";
+import Footer from "./components/Footer";
 
+// Service files
 import noteService from "./services/notes";
 
 const App = (props) => {
@@ -81,6 +84,7 @@ const App = (props) => {
         <input value={newNote} onChange={handleNoteChange} />
         <button type="submit">Save</button>
       </form>
+      <Footer />
     </div>
   );
 };

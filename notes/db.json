@@ -17,12 +17,12 @@
     },
     {
       "content": "A new note...",
-      "important": true,
+      "important": false,
       "id": 4
     },
     {
       "content": "Heyo",
-      "important": false,
+      "important": true,
       "id": 5
     },
     {
@@ -32,7 +32,7 @@
     },
     {
       "content": "HI",
-      "important": true,
+      "important": false,
       "id": 7
     }
   ]
