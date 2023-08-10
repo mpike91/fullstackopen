@@ -1,21 +1,34 @@
 import { useEffect, useState } from "react";
-
 import personService from "./services/persons";
+import "./index.css";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
+  const [notification, setNotification] = useState({
+    message: null,
+    isError: false,
+  });
+
+  // Upon initial render, getPersons
+  useEffect(() => getPersons(), []);
 
   // Get all persons from server and set them to state
   const getPersons = () => {
     personService.getAll().then((allPersons) => setPersons(allPersons));
   };
 
-  // Upon initial render, getPersons
-  useEffect(() => getPersons(), []);
+  // Show notification. Receive message to be displayed, and isError value (default false).
+  const showNotification = (message, isError = false) => {
+    setNotification({ message, isError });
+    setTimeout(() => {
+      setNotification({ ...notification, message: null });
+    }, 5000);
+  };
 
+  // Add person from form upon submit
   const handleSubmit = (e) => {
     e.preventDefault();
     // Check is person exists already
@@ -27,7 +40,13 @@ const App = () => {
     if (!person) {
       personService
         .create({ name: newName, number: newNumber })
-        .then((returnedPerson) => setPersons([...persons, returnedPerson]));
+        .then((returnedPerson) => {
+          showNotification(`Added ${newName}`);
+          setPersons([...persons, returnedPerson]);
+        })
+        .catch((e) => {
+          showNotification(`Something went wrong with adding ${newName}`, true);
+        });
     }
     // If person is already in phonebook, alert user before updating.
     else if (
@@ -36,15 +55,34 @@ const App = () => {
       // If person confirms, then update the user and then repopulate.
       personService
         .update(person.id, { name: newName, number: newNumber })
-        .then(() => getPersons());
+        .then(() => {
+          getPersons();
+          showNotification(`Updated ${newName}`);
+        })
+        .catch((e) => {
+          showNotification(
+            `${newName} has been deleted from the server.`,
+            true
+          );
+        });
     }
   };
 
-  const handleDelete = (id) => {
-    console.log(id);
+  const handleDelete = (id, name) => {
     // Alerts user before deletion, then deletes person from server if confirmed and repopulates data from server
-    if (window.confirm("Do you really want to delete?")) {
-      personService.deleteOne(id).then(() => getPersons());
+    if (window.confirm(`Do you really want to delete ${name}?`)) {
+      personService
+        .deleteOne(id)
+        .then(() => {
+          getPersons();
+          showNotification(`Successfully deleted ${name}`);
+        })
+        .catch((e) => {
+          showNotification(
+            `${name} has already been removed from server.`,
+            true
+          );
+        });
     }
   };
 
@@ -58,11 +96,25 @@ const App = () => {
         setNewNumber={setNewNumber}
         handleSubmit={handleSubmit}
       />
+      <Notification
+        message={notification.message}
+        isError={notification.isError}
+      />
       <h2>Numbers</h2>
       <Numbers persons={persons} filter={filter} handleDelete={handleDelete} />
     </div>
   );
 };
+
+const Notification = ({ message, isError }) =>
+  message === null ? null : (
+    <div
+      className="notification"
+      style={isError ? { color: "red" } : { color: "green" }}
+    >
+      {message}
+    </div>
+  );
 
 const Filter = ({ setFilter }) => (
   <div>
@@ -102,7 +154,9 @@ const Person = ({ person, filter, handleDelete }) => {
     return (
       <li>
         {person.name} ({person.number}){" "}
-        <button onClick={() => handleDelete(person.id)}>Delete</button>
+        <button onClick={() => handleDelete(person.id, person.name)}>
+          Delete
+        </button>
       </li>
     );
   }
