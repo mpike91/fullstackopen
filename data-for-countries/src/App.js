@@ -5,15 +5,15 @@ function App() {
   const [countrySearch, setCountrySearch] = useState("");
   const [countries, setCountries] = useState(null);
 
-  const getCountries = () => {
-    axios
-      .get(`https://studies.cs.helsinki.fi/restcountries/api/all`)
-      .then((res) => {
-        setCountries(res);
-      })
-      .catch((e) => console.log(e));
+  // Get initial dataset of Countries from API
+  const getCountries = async () => {
+    const countriesObj = await axios.get(
+      `https://studies.cs.helsinki.fi/restcountries/api/all`
+    );
+    setCountries(countriesObj);
   };
-  useEffect(getCountries, []);
+
+  useEffect(() => getCountries, []);
 
   // If countries is still null, return loading message.
   if (countries === null) return <div>Loading...</div>;
@@ -56,36 +56,32 @@ const Countries = ({ countries, countrySearch, setCountrySearch }) => {
     ));
   // If zero, return message.
   if (filteredCountries.length === 0)
-    return <div>No countries match that filter.</div>;
+    return <div>No countries match that filter</div>;
 
-  console.log(filteredCountries);
   // In this case, only one country is filtered. Render Country.
   return <Country country={filteredCountries[0]} />;
 };
 
 const Country = ({ country }) => {
-  // debugger;
-  console.log(country);
+  const [weather, setWeather] = useState(null);
 
-  // useEffect(
-  //   () =>
-  //     axios
-  //       .get(`http://api.weatherapi.com/v1/current.json`, {
-  //         params: {
-  //           key: process.env.REACT_APP_WEATHER_API_KEY,
-  //           q: `${latlng[0]},${latlng[1]}`,
-  //         },
-  //       })
-  //       .then((res) => {
-  //         console.log(res);
-  //         setLatlng(res);
-  //       })
-  //       .catch((e) => console.log(e)),
-  //   []
-  // );
+  // Get weather using country's latlng data
+  const getWeather = async () => {
+    const weatherObj = await axios.get(
+      `http://api.weatherapi.com/v1/current.json`,
+      {
+        params: {
+          key: process.env.REACT_APP_WEATHER_API_KEY,
+          q: `${country.latlng[0]},${country.latlng[1]}`,
+        },
+      }
+    );
+    setWeather(weatherObj);
+  };
 
-  // console.log(weather);
+  useEffect(() => getWeather, []);
 
+  // Some data is bad from API, so wrap entire render block in try/catch.
   try {
     const name = country.name.common;
     const capital = country.capital[0];
@@ -106,20 +102,20 @@ const Country = ({ country }) => {
         </ul>
         <img src={png} alt={alt} width="200"></img>
         <h2>Weather in {country.name.common}</h2>
-        {/* <ul>
-        <img
-          src={weather.data.current.condition.icon}
-          width="100"
-          alt={weather.data.current.condition.text}
-        />
-        <li>{weather.data.current.condition.text}</li>
-        <li>Temp: {weather.data.current.temp_f} F</li>
-        <li>Wind: {weather.data.current.wind_mph} mph</li>
-      </ul> */}
+        <ul>
+          <img
+            src={weather.data.current.condition.icon}
+            width="100"
+            alt={weather.data.current.condition.text}
+          />
+          <li>{weather.data.current.condition.text}</li>
+          <li>Temp: {weather.data.current.temp_f} F</li>
+          <li>Wind: {weather.data.current.wind_mph} mph</li>
+        </ul>
       </>
     );
   } catch (e) {
-    return <div>Something went wrong...</div>;
+    return null;
   }
 };
 
