@@ -7,9 +7,11 @@ Filtering is utilized, as well as conditional rendering.
 <p align="center">
   <img width="50%" src="readme.png" alt="app">
 </p>
+<hr>
 <p align="center">
   <img width="50%" src="readme2.png" alt="app">
 </p>
+<hr>
 <p align="center">
   <img width="50%" src="readme3.png" alt="app">
 </p>
