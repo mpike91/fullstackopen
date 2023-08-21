@@ -76,47 +76,57 @@ const Country = ({ country }) => {
         },
       }
     );
+    console.log("Weather res is: ", weatherObj);
     setWeather(weatherObj);
   };
 
   useEffect(() => getWeather, []);
 
-  // Some data is bad from API, so wrap entire render block in try/catch.
-  try {
-    const name = country.name.common;
-    const capital = country.capital[0];
-    const area = country.area;
-    const languages = Object.values(country.languages);
-    const { png, alt } = country.flags;
+  // Get country data to be displayed
+  const name = country.name.common;
+  const capital = country?.capital ?? ["N/A"];
+  const area = country.area;
+  const languages = Object.values(country?.languages);
+  const png = country.flags.png;
+  const alt = country.flags.alt;
 
-    return (
-      <>
-        <h1>{name}</h1>
-        <div>Capital: {capital}</div>
-        <div>Area: {area}</div>
-        <h2>Languages:</h2>
-        <ul>
-          {languages.map((l) => (
-            <li key={l}>{l}</li>
-          ))}
-        </ul>
-        <img src={png} alt={alt} width="200"></img>
-        <h2>Weather in {country.name.common}</h2>
-        <ul>
-          <img
-            src={weather.data.current.condition.icon}
-            width="100"
-            alt={weather.data.current.condition.text}
-          />
-          <li>{weather.data.current.condition.text}</li>
-          <li>Temp: {weather.data.current.temp_f} F</li>
-          <li>Wind: {weather.data.current.wind_mph} mph</li>
-        </ul>
-      </>
-    );
-  } catch (e) {
-    return null;
-  }
+  // Get weather data to be displayed
+  // const weatherImg = weather?.data.current.condition.icon;
+  // const weatherCondition = weather?.data.current.condition.text;
+  // const weatherTemp = weather?.data.current.condition.temp_f;
+  // const weatherMph = weather?.data.current.condition.wind_mph;
+
+  console.log(country);
+  console.log(weather);
+  return (
+    <div>
+      <h1>{name}</h1>
+      <div>Capital: {capital}</div>
+      <div>Area: {area}</div>
+      <h2>Languages:</h2>
+      <ul>
+        {languages.map((l) => (
+          <li key={l}>{l}</li>
+        ))}
+      </ul>
+      <img src={png} alt={alt} width="200"></img>
+      {!weather ? null : (
+        <>
+          <h2>Weather in {name}</h2>
+          <ul>
+            <img
+              src={weather.data.current.condition.icon}
+              width="100"
+              alt={weather.data.current.condition.text}
+            />
+            <li>{weather.data.current.condition.text}</li>
+            <li>Temp: {weather.data.current.temp_f} F</li>
+            <li>Wind: {weather.data.current.wind_mph} mph</li>
+          </ul>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default App;
