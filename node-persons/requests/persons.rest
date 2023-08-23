@@ -1,0 +1,16 @@
+GET http://localhost:3001/api/persons/
+
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+  "name": "Peantu Butter",
+  "number": "4"
+}
+
+###
+DELETE http://localhost:3001/api/persons/2
+
+###
+GET http://localhost:3001/api/persons/1692803103178
