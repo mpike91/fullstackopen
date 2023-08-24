@@ -12,21 +12,21 @@ app.use(express.static("build"));
 app.use(express.json());
 
 // Morgan logger
-// app.use(morgan("dev"));
-app.use(
-  morgan(function (tokens, req, res) {
-    return [
-      tokens.method(req, res),
-      tokens.url(req, res),
-      tokens.status(req, res),
-      tokens.res(req, res, "content-length"),
-      "-",
-      tokens["response-time"](req, res),
-      "ms",
-      Object.keys(req.body).length > 0 ? JSON.stringify(req.body) : null,
-    ].join(" ");
-  })
-);
+app.use(morgan("dev"));
+// app.use(
+//   morgan(function (tokens, req, res) {
+//     return [
+//       tokens.method(req, res),
+//       tokens.url(req, res),
+//       tokens.status(req, res),
+//       tokens.res(req, res, "content-length"),
+//       "-",
+//       tokens["response-time"](req, res),
+//       "ms",
+//       Object.keys(req.body).length > 0 ? JSON.stringify(req.body) : null,
+//     ].join(" ");
+//   })
+// );
 
 // Base data
 let persons = [

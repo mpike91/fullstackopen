@@ -1,6 +1,10 @@
+### GET ALL PERSONS
 GET http://localhost:3001/api/persons/
 
-###
+### GET ONE PERSON
+GET http://localhost:3001/api/persons/1692889063117
+
+### CREATE NEW PERSON
 POST http://localhost:3001/api/persons/
 Content-Type: application/json
 
@@ -9,8 +13,5 @@ Content-Type: application/json
   "number": "4"
 }
 
-###
-DELETE http://localhost:3001/api/persons/2
-
-###
-GET http://localhost:3001/api/persons/1692803103178
+### DELETE PERSON
+DELETE http://localhost:3001/api/persons/1692889250310

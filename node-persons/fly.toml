@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for fs-part-3 on 2023-08-23T12:05:21-04:00
+# fly.toml app configuration file generated for phonebook-mpike on 2023-08-24T11:13:26-04:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "fs-part-3"
+app = "phonebook-mpike"
 primary_region = "mia"
 
 [build]
