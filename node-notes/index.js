@@ -1,8 +1,10 @@
 const express = require("express");
 const cors = require("cors");
+const morgan = require("morgan");
 const app = express();
 
 app.use(express.json());
+app.use(morgan("dev"));
 app.use(cors());
 app.use(express.static("build"));
 
@@ -29,7 +31,7 @@ app.get("/", (request, response) => {
 });
 
 app.get("/api/notes", (request, response) => {
-  response.json(notes);
+  response.status(200).json(notes);
 });
 
 app.get("/api/notes/:id", (request, response) => {
