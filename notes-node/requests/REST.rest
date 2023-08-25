@@ -1,8 +1,8 @@
 ### GET ALL NOTES
 GET http://localhost:3001/api/notes/
 
-### GET ONE NOTE
-GET http://localhost:3001/api/notes/64e8dc4545d36e5a82aea210
+### GET NOTE BY ID
+GET http://localhost:3001/api/notes/64e79b2616631d16c1a5e4f
 
 ### CREATE NOTE
 POST http://localhost:3001/api/notes/ HTTP/1.1
