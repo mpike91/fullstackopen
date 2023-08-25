@@ -41,8 +41,8 @@ const App = () => {
       personService
         .create({ name: newName, number: newNumber })
         .then((returnedPerson) => {
-          showNotification(`Added ${newName}`);
           setPersons([...persons, returnedPerson]);
+          showNotification(`Added ${newName}`);
         })
         .catch((e) => {
           showNotification(`Something went wrong with adding ${newName}`, true);
@@ -56,8 +56,7 @@ const App = () => {
       personService
         .update(person.id, { name: newName, number: newNumber })
         .then(() => {
-          getPersons();
-          showNotification(`Updated ${newName}`);
+          getPersons().then(() => showNotification(`Updated ${newName}`));
         })
         .catch((e) => {
           showNotification(

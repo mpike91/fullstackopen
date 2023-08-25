@@ -13,5 +13,14 @@ Content-Type: application/json
   "number": "123"
 }
 
+### UPDATE PERSON
+PUT http://localhost:3001/api/persons/64e8d030e991a6b7ea297820
+Content-Type: application/json
+
+{
+  "name": "PEANUT BUTTR",
+  "number": "1234565677234213414123"
+}
+
 ### DELETE PERSON
-DELETE http://localhost:3001/api/persons/64e8e926ccc0cce1f7a87781
+DELETE http://localhost:3001/api/persons/64e8ea70759ab3d4809a596
