@@ -27,15 +27,6 @@ app.get("/api/notes/:id", (request, response) => {
   Note.findById(request.params.id).then((note) => response.json(note));
 });
 
-// Delete note by id
-app.delete("/api/notes/:id", (request, response) => {
-  Note.findByIdAndDelete(request.params.id).then((note) =>
-    note
-      ? response.status(204).json({})
-      : response.status(400).json({ message: "No such id found" })
-  );
-});
-
 // Create new note
 app.post("/api/notes", (request, response) => {
   const body = request.body;
@@ -52,6 +43,15 @@ app.post("/api/notes", (request, response) => {
   });
 
   note.save().then((savedNote) => response.json(savedNote));
+});
+
+// Delete note by id
+app.delete("/api/notes/:id", (request, response) => {
+  Note.findByIdAndDelete(request.params.id).then((note) =>
+    note
+      ? response.status(204).json({})
+      : response.status(400).json({ message: "No such id found" })
+  );
 });
 
 // Start server

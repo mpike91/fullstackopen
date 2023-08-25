@@ -2,16 +2,16 @@
 GET http://localhost:3001/api/persons/
 
 ### GET ONE PERSON
-GET http://localhost:3001/api/persons/1692889063117
+GET http://localhost:3001/api/persons/64e8d030e991a6b7ea297820
 
 ### CREATE NEW PERSON
 POST http://localhost:3001/api/persons/
 Content-Type: application/json
 
 {
-  "name": "Peantu Butter",
-  "number": "4"
+  "name": "SHORE MCGORE",
+  "number": "123"
 }
 
 ### DELETE PERSON
-DELETE http://localhost:3001/api/persons/1692889250310
+DELETE http://localhost:3001/api/persons/64e8e926ccc0cce1f7a87781
