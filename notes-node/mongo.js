@@ -23,16 +23,18 @@ const Note = mongoose.model("Note", noteSchema);
 
 // Create a new note object
 // const note = new Note({
-//   content: "HTML is Easy",
+//   content: "GET and POST are the most important methods of HTTP protocol",
 //   important: true,
 // });
 
+// Save note
 // note.save().then((result) => {
 //   console.log("note saved!");
 //   mongoose.connection.close();
 // });
 
-Note.find({ important: false }).then((result) => {
+// Finding notes
+Note.find({}).then((result) => {
   result.forEach((note) => {
     console.log(note);
   });
