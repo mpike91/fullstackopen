@@ -1,0 +1,17 @@
+### GET ALL NOTES
+GET http://localhost:3001/api/notes/
+
+### GET ONE NOTE
+GET http://localhost:3001/api/notes/64e8dc4545d36e5a82aea210
+
+### CREATE NOTE
+POST http://localhost:3001/api/notes/ HTTP/1.1
+content-type: application/json
+
+{
+    "content": "DO NOT GIVE UP",
+    "important": true
+}
+
+### DELETE NOTE
+DELETE http://localhost:3001/api/notes/64e8e0947a460ce30f552669

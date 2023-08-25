@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for aged-violet-7520 on 2023-08-23T13:28:55-04:00
+# fly.toml app configuration file generated for notes-mpike on 2023-08-25T12:40:00-04:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "aged-violet-7520"
+app = "notes-mpike"
 primary_region = "mia"
 
 [build]
