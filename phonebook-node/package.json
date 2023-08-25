@@ -7,7 +7,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:ui": "rm -rf build && cd ../react-phonebook/ && npm run build && cp -r build ../node-persons",
+    "build:ui": "rm -rf build && cd ../phonebook-react/ && npm run build && cp -r build ../phonebook-node",
     "deploy": "fly deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
     "logs:prod": "fly logs"
