@@ -45,7 +45,8 @@ const App = () => {
           showNotification(`Added ${newName}`);
         })
         .catch((e) => {
-          showNotification(`Something went wrong with adding ${newName}`, true);
+          console.log(e.response.data.error);
+          showNotification(e.response.data.error, true);
         });
     }
     // If person is already in phonebook, alert user before updating.
@@ -56,13 +57,12 @@ const App = () => {
       personService
         .update(person.id, { name: newName, number: newNumber })
         .then(() => {
-          getPersons().then(() => showNotification(`Updated ${newName}`));
+          getPersons();
+          showNotification(`Updated ${newName}`);
         })
         .catch((e) => {
-          showNotification(
-            `${newName} has been deleted from the server.`,
-            true
-          );
+          console.log(e.response.data.error);
+          showNotification(e.response.data.error, true);
         });
     }
   };

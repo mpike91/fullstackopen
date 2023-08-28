@@ -17,8 +17,19 @@ mongoose
   });
 
 const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
+  name: {
+    type: String,
+    minLength: 3,
+    required: true,
+  },
+  number: {
+    type: String,
+    minLength: 12,
+    validate: {
+      validator: (val) => val.split("-").length === 3,
+      message: "Must be of format '111-234-5678'",
+    },
+  },
 });
 
 personSchema.set("toJSON", {

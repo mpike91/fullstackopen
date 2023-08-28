@@ -9,8 +9,8 @@ POST http://localhost:3001/api/persons/
 Content-Type: application/json
 
 {
-  "name": "SHORE MCGORE",
-  "number": "123"
+  "name": "SHAQ",
+  "number": "123-4234-51445512"
 }
 
 ### UPDATE PERSON
@@ -18,8 +18,8 @@ PUT http://localhost:3001/api/persons/64e8d030e991a6b7ea297820
 Content-Type: application/json
 
 {
-  "name": "PEANUT BUTTR",
-  "number": "1234565677234213414123"
+  "name": "shaq",
+  "number": "123451-3123412-41"
 }
 
 ### DELETE PERSON
