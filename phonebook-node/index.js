@@ -37,9 +37,11 @@ app.get("/api/persons/:id", (req, res) => {
 
 // Create a new person
 app.post("/api/persons", (req, res, next) => {
+  const body = req.body;
+
   const person = new Person({
-    name: req.body.name,
-    number: req.body.number,
+    name: body.name,
+    number: body.number,
   });
   person
     .save()

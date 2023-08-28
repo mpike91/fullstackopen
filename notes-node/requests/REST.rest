@@ -5,7 +5,7 @@ GET http://localhost:3001/api/notes/
 GET http://localhost:3001/api/notes/64e79b2616631d16c1a5e4f
 
 ### CREATE NOTE
-POST http://localhost:3001/api/notes/ HTTP/1.1
+POST http://localhost:3001/api/notes/
 content-type: application/json
 
 {
@@ -14,4 +14,4 @@ content-type: application/json
 }
 
 ### DELETE NOTE
-DELETE http://localhost:3001/api/notes/64e8e0947a460ce30f552669
+DELETE http://localhost:3001/api/notes/64ecb3e41086b23a344e83c9
